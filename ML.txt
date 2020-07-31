@@ -1,0 +1,76 @@
+Microsoft Windows [Version 10.0.18363.900]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+(base) C:\Users\hp>python
+Python 3.8.3 (default, Jul  2 2020, 17:28:51) [MSC v.1916 32 bit (Intel)] :: Anaconda, Inc. on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> print("hello Garvit")
+hello Garvit
+>>> import pandas
+>>> import numpy as np
+>>> import matplotlib.pyplot as plt
+>>> from sklearn.metrics import accuracy_score
+>>> #Load training dataset
+>>> url = "https://raw.githubusercontent.com/callxpert/datasets/master/data-scientist-salaries.cc"
+>>> names = ['Years-experience', 'Salary']
+>>> dataset = pandas.read_csv(url, names=names)
+>>> print(dataset.shape)
+(10, 2)
+>>> print(dataset.head(5))
+   Years-experience  Salary
+0                 1  110000
+1                 2  120000
+2                 3  130000
+3                 4  140000
+4                 5  150000
+>>> print(dataset.describe())
+       Years-experience         Salary
+count          10.00000      10.000000
+mean            5.50000  155000.000000
+std             3.02765   30276.503541
+min             1.00000  110000.000000
+25%             3.25000  132500.000000
+50%             5.50000  155000.000000
+75%             7.75000  177500.000000
+max            10.00000  200000.000000
+>>> dataset.plot()
+<matplotlib.axes._subplots.AxesSubplot object at 0x0187FEF8>
+>>> plt.show()
+>>> X = dataset[['Years-experience']]
+>>> y = dataset['Salary']
+>>> from sklearn.model_selection import train_test_split
+>>> X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=101)
+>>> from sklearn.linear_model import LinearRegression
+>>> model = LinearRegression()
+>>> model.fit(X_train,y_train)
+LinearRegression()
+>>> predictions = model.predict(X_test)
+>>> print(accuracy_score(y_test,predictions))
+1.0
+>>> print(model.predict(8.3))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "C:\Users\hp\anaconda3\lib\site-packages\sklearn\linear_model\_base.py", line 236, in predict
+    return self._decision_function(X)
+  File "C:\Users\hp\anaconda3\lib\site-packages\sklearn\linear_model\_base.py", line 218, in _decision_function
+    X = check_array(X, accept_sparse=['csr', 'csc', 'coo'])
+  File "C:\Users\hp\anaconda3\lib\site-packages\sklearn\utils\validation.py", line 73, in inner_f
+    return f(**kwargs)
+  File "C:\Users\hp\anaconda3\lib\site-packages\sklearn\utils\validation.py", line 613, in check_array
+    raise ValueError(
+ValueError: Expected 2D array, got scalar array instead:
+array=8.3.
+Reshape your data either using array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample.
+>>>
+
+(base) C:\Users\hp>print(model.predict(6.3))
+Unable to initialize device PRN
+
+(base) C:\Users\hp>python
+Python 3.8.3 (default, Jul  2 2020, 17:28:51) [MSC v.1916 32 bit (Intel)] :: Anaconda, Inc. on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> print(model.predict(6.3))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'model' is not defined
+>>>  
